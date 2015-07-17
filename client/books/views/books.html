@@ -1,4 +1,14 @@
 <template name="books">
+	{{#if addingBook}}
+		<form id="add-book-form">
+			<input type="text" placeholder="Title" class="text" value="" name="title">
+			<input type="text" placeholder="Author" class="text" value="" name="author">
+			<button id="submit-book-btn" type="submit" class="btn btn-primary">Submit</button>
+			<button id="cancel-book-btn" type="button" class="btn btn-cancel">Cancel</button>
+		</form>
+	{{else}}
+		<button id="add-book-btn" type="button" class="btn btn-primary btn-block">Add Book</button>
+	{{/if}}
 	<h3>Books</h3>
 	{{#each books}}
 		{{> book}}
