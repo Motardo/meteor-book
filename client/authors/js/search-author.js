@@ -1,10 +1,10 @@
-Template.search.helpers({
+Template.searchAuthor.helpers({
 	'author': function() {
 		return Session.get('author');
 	}
 });
 
-Template.search.events({
+Template.searchAuthor.events({
 	'submit #author-search-form': function(e, tpl) {
 		e.preventDefault();
 		console.log('Author search: ' + e.target.name.value);
