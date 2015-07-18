@@ -1,0 +1,15 @@
+<template name="authorBooks">
+<h2>authorBooks</h2>
+	<div class="container">
+		<h2>{{name}}</h2>
+		{{#each books}}
+			<div class="row">
+				<div class="col-xs-3">{{title}}</div>
+				<div class="col-xs-3">{{year}}</div>
+				<div class="col-xs-3">{{bibId}}</div>
+				<div class="col-xs-3">{{author}}</div>
+			</div>
+		{{/each}}
+	</div>
+</template>
+

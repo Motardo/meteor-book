@@ -1,14 +1,15 @@
 <template name="listAuthors">
 <div>Authors:</div>
-	<ul>
 		{{#each authors}}
 			{{> authorName}}
 		{{/each}}
-	</ul>
 </template>
 
 <template name="authorName">
-	<li>
-		{{name}}
-	</li>
+	<div class="row">
+		<a href="/author/{{_id}}/books">
+			{{name}}
+		</a>
+	</div>
 </template>
+
