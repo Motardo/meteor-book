@@ -1,4 +1,4 @@
-Template.book.events({
+Template.shortBook.events({
 	'click #delete-book-btn': function(e, tpl) {
 		e.preventDefault();
 		console.log('delete clicked ' + this);

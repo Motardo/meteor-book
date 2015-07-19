@@ -1,0 +1,21 @@
+<template name="longBook">
+	<div class="page-header">
+		<h1>{{title}}</h1>
+	</div>
+	<div>
+		<h2>{{author}}</h2>
+		<p>ISBN: {{isbn}}</p>
+		<p>Pages: {{pages}}</p>
+		<p>Published: {{year}}</p>
+		<p>{{fullTitle}}</p>
+		<p>{{description}}</p>
+		<h4>Links</h4>
+		<ul>{{{links}}}</ul>
+		<h4>Subjects</h4>
+		<ul>
+			{{#each subjects}}
+			<li>{{this}}</li>
+			{{/each}}
+		</ul>
+	</div>
+</template>

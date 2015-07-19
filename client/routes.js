@@ -3,7 +3,7 @@ Router.route('/', {
 });
 
 Router.route('/books/:bibId', {
-	template: 'book',
+	template: 'longBook',
 	data: function() {
 		var bibId = this.params.bibId;
 		var book = Books.findOne({'bibId': bibId});

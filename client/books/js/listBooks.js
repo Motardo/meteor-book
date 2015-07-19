@@ -1,4 +1,4 @@
-Template.books.helpers({
+Template.listBooks.helpers({
 	'books': function() {
 		return Books.find();
 	},
@@ -7,7 +7,7 @@ Template.books.helpers({
 	}
 });
 
-Template.books.events({
+Template.listBooks.events({
 	'click #add-book-btn': function(e, tpl) {
 		e.preventDefault();
 		Session.set('adding-book', true);
