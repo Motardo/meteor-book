@@ -1,8 +1,9 @@
 Template.shortBook.events({
 	'click #delete-book-btn': function(e, tpl) {
 		e.preventDefault();
-		console.log('delete clicked ' + this);
-		Books.remove(this._id);
+		var bibId = this._id;
+		console.log('delete clicked ' + bibId);
+		Meteor.call('removeBook', bibId);
 	}
 });
 
