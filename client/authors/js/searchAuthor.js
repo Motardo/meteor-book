@@ -7,9 +7,8 @@ Template.searchAuthor.helpers({
 Template.searchAuthor.events({
 	'submit #author-search-form': function(e, tpl) {
 		e.preventDefault();
-		console.log('Author search: ' + e.target.name.value);
-		var name = e.target.name.value;
-		//TODO titleize
+		var name = titleize(e.target.name.value);
+		console.log('Author search: ' + name);
 		var author = Authors.findOne({'name': name});
 		if (author) {
 			console.log('Found author: ' + author.name);
