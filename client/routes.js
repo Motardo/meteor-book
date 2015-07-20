@@ -8,13 +8,13 @@ Router.route('/books/:bibId', {
 		return [Meteor.subscribe('books')];
 	},
 	data: function() {
-		if (this.ready()) {
 		var bibId = this.params.bibId;
 		var book = Books.findOne({'bibId': bibId});
 		if (book) {
 			console.log('Book found: ' + bibId);
 			return book;
 		} else {
+		if (this.ready()) {
 			console.log('Book not found: ' + bibId);
 			Meteor.call('searchLOCbibId', bibId, function(err, res) {
 				if (err) {
