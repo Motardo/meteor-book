@@ -4,7 +4,11 @@ Router.route('/', {
 
 Router.route('/books/:bibId', {
 	template: 'longBook',
+	waitOn: function() {
+		return [Meteor.subscribe('books')];
+	},
 	data: function() {
+		if (this.ready()) {
 		var bibId = this.params.bibId;
 		var book = Books.findOne({'bibId': bibId});
 		if (book) {
@@ -19,6 +23,7 @@ Router.route('/books/:bibId', {
 					Session.set('book', res);
 				}
 			});
+		}
 		}
 	}
 });
