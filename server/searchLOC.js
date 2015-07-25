@@ -50,59 +50,64 @@ Meteor.startup(function() {
 
 var searchLOCbibId =  function(bibId) {
 	console.log('Search LOC for: ' + bibId);
-	var book = {'bibId': bibId};			
-	var url = 'http://catalog.loc.gov/vwebv/holdingsInfo?bibId=' + bibId;
-	var html = Meteor.http.get(url).content;
-	if (html) {
-		console.log('cheerio:' + bibId);
-		var $ = cheerio.load(html);
+	var book = Books.findOne({'bibId': bibId});
+	if (book) return book;
+	else {
+		book = {'bibId': bibId};			
 
-		// Find the bibId
-//		var href = $('a[class=request_action]').first().attr('href');
-//		if (href) {
-//		book.bibId = href.match(/bibId=[0-9]+/)[0].substring(6);					
-//		console.log('href ' + href);
-		// Find the rest of the info
-		book.author = $('th').filter(function (i, el) {
-			return $(this).text() === 'Personal name';
-		}).next().find('span').text();
+		var url = 'http://catalog.loc.gov/vwebv/holdingsInfo?bibId=' + bibId;
+		var html = Meteor.http.get(url).content;
+		if (html) {
+			console.log('cheerio:' + bibId);
+			var $ = cheerio.load(html);
 
-		book.fullTitle = titleize($('th').filter(function (i, el) {
-			return $(this).text() === 'Main title';
-		}).next().find('span').text());
-		book.title = book.fullTitle.match(/[^\/]+/)[0].trim();
+			// Find the bibId
+	//		var href = $('a[class=request_action]').first().attr('href');
+	//		if (href) {
+	//		book.bibId = href.match(/bibId=[0-9]+/)[0].substring(6);					
+	//		console.log('href ' + href);
+			// Find the rest of the info
+			book.author = $('th').filter(function (i, el) {
+				return $(this).text() === 'Personal name';
+			}).next().find('span').text();
 
-		book.isbn = $('h2').filter(function (i, el) {
-			return $(this).text() === 'ISBN';
-		}).next().find('span').first().text().match(/[0-9]+/)[0];
+			book.fullTitle = titleize($('th').filter(function (i, el) {
+				return $(this).text() === 'Main title';
+			}).next().find('span').text());
+			book.title = book.fullTitle.match(/[^\/]+/)[0].trim();
 
-		var pages = $('h2').filter(function(i,el){
-			return $(this).text() === 'Description';
-		}).next().find('span').text();
-		pages = pages.match(/[0-9]+ p./);
-		if (pages) { book.pages = pages[0].match(/[0-9]+/)[0]; }
+			book.isbn = $('h2').filter(function (i, el) {
+				return $(this).text() === 'ISBN';
+			}).next().find('span').first().text().match(/[0-9]+/)[0];
 
-		var year = $('th').filter(function(i,el){ return $(this).text().indexOf('Published') === 0; }).next().find('span').text();
-		book.year = year.match(/[0-9]{4}/)[0];
+			var pages = $('h2').filter(function(i,el){
+				return $(this).text() === 'Description';
+			}).next().find('span').text();
+			pages = pages.match(/[0-9]+ p./);
+			if (pages) { book.pages = pages[0].match(/[0-9]+/)[0]; }
 
-		var subj = $('h2').filter(function(i,el){ return $(this).text() === 'Subjects'; }).next().find('span');
-		book.subjects = [];
-		subj.each(function (i, el) {
-			book.subjects.push($(el).text());	
-		});
+			var year = $('th').filter(function(i,el){ return $(this).text().indexOf('Published') === 0; }).next().find('span').text();
+			book.year = year.match(/[0-9]{4}/)[0];
 
-		book.links = $('h2').filter(function(i,el){ return $(this).text() === 'Links'; }).next().html();	
+			var subj = $('h2').filter(function(i,el){ return $(this).text() === 'Subjects'; }).next().find('span');
+			book.subjects = [];
+			subj.each(function (i, el) {
+				book.subjects.push($(el).text());	
+			});
 
-		Books.insert(book, function(err, res) {
-			if (err) {
-				console.log('Books insert error: ' + err);
-			} else {
-				console.log('Books insert success: ' + res);
-			}
-		});
-		return book;
-	} else {
-		console.log('searchLOCbibIb error');
+			book.links = $('h2').filter(function(i,el){ return $(this).text() === 'Links'; }).next().html();	
+
+			Books.insert(book, function(err, res) {
+				if (err) {
+					console.log('Books insert error: ' + err);
+				} else {
+					console.log('Books insert success: ' + res);
+				}
+			});
+			return book;
+		} else {
+			console.log('searchLOCbibIb error');
+		}
 	}
 };
 
