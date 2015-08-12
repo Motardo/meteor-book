@@ -15,7 +15,7 @@ Template.searchAuthor.events({
 			Session.set('author', author);
 		} else {
 			console.log('Not found: ' + name);
-			Meteor.call('searchLOC', name, function(err, res) {
+			Meteor.call('searchLOCByAuthor', name, function(err, res) {
 				if (err) {
 					console.log('searchLoc Error: ' + err);
 				} else {

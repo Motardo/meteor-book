@@ -15,7 +15,7 @@ Router.route('/books/:bibId', {
 			return book;
 		} else if (this.ready()) {
 			console.log('Book not found: ' + bibId);
-			Meteor.call('searchLOCbibId', bibId, function(err, res) {
+			Meteor.call('searchLOCByBibId', bibId, function(err, res) {
 				if (err) {
 					console.log('searchLOCbibId Error: ' + err);
 				} else {
