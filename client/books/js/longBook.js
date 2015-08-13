@@ -1,14 +1,8 @@
-Template.searchAuthor.helpers({
-	'author': function() {
-		return Session.get('author');
-	}
-});
-
-Template.searchAuthor.events({
-	'submit #author-search-form': function(e, tpl) {
-		e.preventDefault();
-		var name = titleize(e.target.name.value);
-		searchAuthor(name);
+Template.longBook.events({
+	'click .author-link': function (evt, tpl) {
+		evt.preventDefault();
+		console.log(this);
+		searchAuthor(this.author);
 	}
 });
 
@@ -32,4 +26,5 @@ function searchAuthor (name) {
 		});
 	}
 }
+
 

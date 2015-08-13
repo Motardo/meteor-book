@@ -4,11 +4,11 @@ Template.listAuthors.helpers({
     }
 });
 
-Router.route('/author/:id/books', {
+Router.route('/author/:key/books', {
 	name: 'authorBooks',
 	template: 'authorBooks',
 	data: function() {
-		var id = this.params.id;
-		return Authors.findOne({_id: id});
+		var key = this.params.key;
+		return Authors.findOne({'key': key});
 	}
 });
