@@ -8,8 +8,9 @@ Template.searchAuthor.events({
 	'submit #author-search-form': function(e, tpl) {
 		e.preventDefault();
 		var name = titleize(e.target.name.value);
+		var key = keyify(e.target.name.value);
 		console.log('Author search: ' + name);
-		var author = Authors.findOne({'name': name});
+		var author = Authors.findOne({'key': key});
 		if (author) {
 			console.log('Found author: ' + author.name);
 			Session.set('author', author);

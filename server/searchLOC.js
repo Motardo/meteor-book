@@ -1,5 +1,7 @@
 searchLOCByAuthor = function(name) {
-	var author = Authors.findOne({'name': name});
+	name = titleize(name);
+	var key = keyify(name);
+	var author = Authors.findOne({'key': key});
 	if (author) {
 		return author;
 	} else {
@@ -8,7 +10,7 @@ searchLOCByAuthor = function(name) {
 			name.replace(/ /gm, '+') +
 			'&searchCode=GKEY^*&searchType=0&recCount=50';
 		var html = Meteor.http.get(url).content;
-		author = {'name': 'loading'};
+		author = {'name': name, 'key': key};
 
 		if (html) {
 			var books = [];
