@@ -14,6 +14,7 @@ Template.searchAuthor.events({
 		if (author) {
 			console.log('Found author: ' + author.name);
 			Session.set('author', author);
+			Router.go('authorBooks', {id: author._id});
 		} else {
 			console.log('Not found: ' + name);
 			Meteor.call('searchLOCByAuthor', name, function(err, res) {
@@ -21,6 +22,7 @@ Template.searchAuthor.events({
 					console.log('searchLoc Error: ' + err);
 				} else {
 					Session.set('author', res);
+					Router.go('authorBooks', {id: res});
 				}
 			});
 		}

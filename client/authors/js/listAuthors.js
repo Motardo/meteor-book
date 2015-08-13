@@ -5,6 +5,7 @@ Template.listAuthors.helpers({
 });
 
 Router.route('/author/:id/books', {
+	name: 'authorBooks',
 	template: 'authorBooks',
 	data: function() {
 		var id = this.params.id;
