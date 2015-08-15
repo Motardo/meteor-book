@@ -16,17 +16,14 @@ Feature: One-liner description of this feature
     Given I am a new user
 
   # This scenario will run as part of the Meteor dev cycle because it has the @dev tag
-	@dev
   Scenario: This scenario will run on both dev and CI
     When I navigate to "/"
     Then I should see the title "Books"
 
-	@dev
   Scenario: This scenario will run on both dev and CI
     When I navigate to "/"
     Then I should see the element "#search-author-btn" with text "Search"
 
-	@dev
   Scenario: This scenario will run on both dev and CI
     When I navigate to "/"
     Then I should see the element "#add-book-btn" with text "Add Book"
